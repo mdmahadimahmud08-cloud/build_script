@@ -6,6 +6,10 @@ DEVICE="lancelot"
 MAINTAINER="bhodrolok"
 BUILDTYPE="UNOFFICIAL"
 
+# ================= REPO INIT =================
+echo ">>> Initializing LOS 23.2 manifest..."
+repo init -u https://github.com/LineageOS/android.git -b lineage-23.2 --git-lfs
+
 # ================= MANIFEST =================
 echo ">>> Setting up local manifests..."
 mkdir -p .repo/local_manifests
