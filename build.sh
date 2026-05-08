@@ -35,6 +35,10 @@ cat > .repo/local_manifests/roomservice.xml << 'EOF'
 
   <!-- MTK Sepolicy -->
   <project path="device/mediatek/sepolicy_vndr" name="LineageOS/android_device_mediatek_sepolicy_vndr" remote="hub" revision="lineage-23.2" />
+
+  <!-- Hardware -->
+  <project path="hardware/xiaomi" name="LineageOS/android_hardware_xiaomi" remote="hub" revision="lineage-23.2" />
+  <project path="hardware/mediatek" name="LineageOS/android_hardware_mediatek" remote="hub" revision="lineage-23.2" />
 </manifest>
 EOF
 
