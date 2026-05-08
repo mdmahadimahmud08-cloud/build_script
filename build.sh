@@ -42,13 +42,26 @@ cat > .repo/local_manifests/roomservice.xml << 'EOF'
 </manifest>
 EOF
 
-# ================= SYNC =================
+# ================= SYNC WITH RETRY =================
 echo ">>> Syncing repos..."
 if [ -f /opt/crave/resync.sh ]; then
     /opt/crave/resync.sh
 else
-    repo sync -c --force-sync --no-tags --no-clone-bundle -j$(nproc --all)
+    while true; do
+        echo ">>> Syncing..."
+        repo sync -c --force-sync --no-tags --no-clone-bundle -j$(nproc --all) 2>&1 | tee /tmp/sync.log
+        if ! grep -qE "error:|fatal:|fail" /tmp/sync.log; then
+            echo ">>> Sync completed successfully!"
+            break
+        fi
+        echo ">>> Sync had errors, retrying in 10 seconds..."
+        sleep 10
+    done
 fi
+
+# ================= PATCH IMS BUG =================
+echo ">>> Patching IMS bug in device tree..."
+sed -i '/mediatek-maliLT\|mediatek-framework\|mediatek-telecom-common\|mediatek-telephony-base\|mediatek-telephony-common/d' device/xiaomi/lancelot/lineage_lancelot.mk
 
 # ================= BUILD =================
 echo ">>> Setting up build environment..."
