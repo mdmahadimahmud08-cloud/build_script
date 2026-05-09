@@ -62,6 +62,9 @@ fi
 # ================= PATCH IMS BUG =================
 echo ">>> Patching IMS bug in device tree..."
 sed -i '/mediatek-maliLT\|mediatek-framework\|mediatek-telecom-common\|mediatek-telephony-base\|mediatek-telephony-common/d' device/xiaomi/lancelot/lineage_lancelot.mk
+sed -i '/mediatek-maliLT\|mediatek-framework\|mediatek-telecom-common\|mediatek-telephony-base\|mediatek-telephony-common/d' device/xiaomi/mt6768-common/mt6768.mk
+sed -i '/mediatek-maliLT\|mediatek-framework\|mediatek-telecom-common\|mediatek-telephony-base\|mediatek-telephony-common/d' device/xiaomi/mt6768-common/device.mk
+find device/xiaomi/ -name "*.mk" -exec sed -i '/mediatek-maliLT\|mediatek-framework\|mediatek-telecom-common\|mediatek-telephony-base\|mediatek-telephony-common/d' {} \;
 
 # ================= BUILD =================
 echo ">>> Setting up build environment..."
