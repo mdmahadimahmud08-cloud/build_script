@@ -7,8 +7,8 @@ MAINTAINER="bhodrolok"
 BUILDTYPE="UNOFFICIAL"
 
 # ================= REPO INIT =================
-echo ">>> Initializing LOS 23.2 manifest..."
-repo init -u https://github.com/LineageOS/android.git -b lineage-23.2 --git-lfs
+echo ">>> CrDroid manifest..."
+repo init -u https://github.com/crdroidandroid/android.git -b 16.0 --git-lfs --no-clone-bundle
 
 # ================= MANIFEST =================
 echo ">>> Setting up local manifests..."
@@ -59,20 +59,25 @@ else
     done
 fi
 
-# ================= PATCH IMS BUG =================
-echo ">>> Patching IMS bug in device tree..."
-sed -i '/mediatek-maliLT\|mediatek-framework\|mediatek-telecom-common\|mediatek-telephony-base\|mediatek-telephony-common/d' device/xiaomi/lancelot/lineage_lancelot.mk
-sed -i '/mediatek-maliLT\|mediatek-framework\|mediatek-telecom-common\|mediatek-telephony-base\|mediatek-telephony-common/d' device/xiaomi/mt6768-common/mt6768.mk
-sed -i '/mediatek-maliLT\|mediatek-framework\|mediatek-telecom-common\|mediatek-telephony-base\|mediatek-telephony-common/d' device/xiaomi/mt6768-common/device.mk
-find device/xiaomi/ -name "*.mk" -exec sed -i '/mediatek-maliLT\|mediatek-framework\|mediatek-telecom-common\|mediatek-telephony-base\|mediatek-telephony-common/d' {} \;
+# ================= PATCH — NFC sepolicy fix =================
+echo ">>> Patching NFC sepolicy..."
+FILE="device/xiaomi/mt6768-common/sepolicy/vendor/file_contexts"
+if [ -f "$FILE" ]; then
+    sed -i '/\/dev\/nq-nci/d' "$FILE"
+    echo ">>> NFC patch applied!"
+else
+    echo ">>> file_contexts not found, skipping NFC patch..."
+fi
 
 # ================= BUILD =================
 echo ">>> Setting up build environment..."
-source build/envsetup.sh
+. build/envsetup.sh
 
-export LINEAGE_BUILDTYPE=$BUILDTYPE
-export LINEAGE_MAINTAINER="$MAINTAINER"
+export CRDROID_BUILDTYPE="UNOFFICIAL"
+export CRDROID_MAINTAINER="bhodrolok"
+export TARGET_SUPPORTS_BLUR=false
+
 
 echo ">>> Building LOS 23.2 for $DEVICE..."
-breakfast $DEVICE
-mka bacon -j$(nproc --all)
+brunch $DEVICE user
+m -j$(nproc --all)
