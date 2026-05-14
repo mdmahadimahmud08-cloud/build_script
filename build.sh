@@ -23,7 +23,7 @@ cat > .repo/local_manifests/roomservice.xml << 'EOF'
   <project path="device/xiaomi/merlinx" name="mk7x7/device_xiaomi_merlinx.git" remote="hub" revision="16.2" />
 
   <!-- Common Device Tree -->
-  <project path="device/xiaomi/mt6768-common" name="mk7x7/device_xiaomi_mt6768-common" remote="hub" revision="16.2" />
+  <project path="device/xiaomi/mt6768-common" name="mdmahadimahmud08-cloud/device_xiaomi_mt6768-common" remote="hub" revision="16.2" />
 
   <!-- Kernel -->
   <project path="kernel/xiaomi/mt6768" name="MrShockWAVEog/ximi-lancerlin-krenlol.git" remote="hub" revision="shockwave" />
