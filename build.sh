@@ -7,7 +7,7 @@ MAINTAINER="bhodrolok"
 BUILDTYPE="UNOFFICIAL"
 
 # ================= REPO INIT =================
-echo ">>> Init CrDroid Manifest..."
+echo ">>> CrDroid manifest..."
 repo init -u https://github.com/crdroidandroid/android.git -b 16.0 --git-lfs --no-clone-bundle
 
 # ================= MANIFEST =================
