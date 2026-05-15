@@ -74,7 +74,7 @@ echo ">>> Setting up build environment..."
 . build/envsetup.sh
 
 export ALLOW_MISSING_DEPENDENCIES=true
-export CRDROID_BUILDTYPE="UNOFFICIAL"
+export CRDROID_BUILDTYPE="OFFICIAL"
 export CRDROID_MAINTAINER="bhodrolok"
 export TARGET_SUPPORTS_BLUR=false
 
