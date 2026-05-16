@@ -40,7 +40,7 @@ cat > .repo/local_manifests/roomservice.xml << 'EOF'
   <project path="hardware/xiaomi" name="LineageOS/android_hardware_xiaomi" remote="hub" revision="lineage-23.2" />
   <project path="hardware/mediatek" name="LineageOS/android_hardware_mediatek" remote="hub" revision="lineage-23.2" />
  <!-- MTK IMS -->
- <project path="vendor/mediatek/ims" name="techyminati/android_vendor_mediatek_ims.git" remote="hub" revision="lineage-23.2" />
+ <project path="vendor/mediatek/ims" name="techyminati/android_vendor_mediatek_ims.git" remote="hub" revision="android-16-qpr2" />
 </manifest>
 EOF
 
