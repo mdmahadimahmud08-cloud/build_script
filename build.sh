@@ -8,7 +8,7 @@ BUILDTYPE="UNOFFICIAL"
 
 # ================= REPO INIT =================
 echo ">>> CrDroid manifest..."
-repo init -u https://github.com/crdroidandroid/android.git -b 16.0 --git-lfs --no-clone-bundle
+repo init -u https://github.com/LineageOS/android.git -b lineage-23.2 --git-lfs --no-clone-bundle
 
 # ================= MANIFEST =================
 echo ">>> Setting up local manifests..."
@@ -29,7 +29,7 @@ cat > .repo/local_manifests/roomservice.xml << 'EOF'
   <project path="kernel/xiaomi/mt6768" name="MrShockWAVEog/ximi-lancerlin-krenlol.git" remote="hub" revision="shockwave" />
 
   <!-- Vendor Trees -->
-  <project path="vendor/xiaomi/mt6768-common" name="mk7x7/proprietary_vendor_xiaomi_mt6768-common.git" remote="hub" revision="16.2" />
+  <project path="vendor/xiaomi/mt6768-common" name="akifakif32/proprietary_vendor_xiaomi_mt6768-common.git" remote="hub" revision="16.2" />
   <project path="vendor/xiaomi/lancelot" name="mk7x7/proprietary_vendor_xiaomi_lancelot.git" remote="hub" revision="16.2" />
   <project path="vendor/xiaomi/merlinx" name="mk7x7/proprietary_vendor_xiaomi_merlinx.git" remote="hub" revision="16.2" />
 
@@ -39,6 +39,8 @@ cat > .repo/local_manifests/roomservice.xml << 'EOF'
   <!-- Hardware -->
   <project path="hardware/xiaomi" name="LineageOS/android_hardware_xiaomi" remote="hub" revision="lineage-23.2" />
   <project path="hardware/mediatek" name="LineageOS/android_hardware_mediatek" remote="hub" revision="lineage-23.2" />
+ <!-- MTK IMS -->
+ <project path="vendor/mediatek/ims" name="techyminati/android_vendor_mediatek_ims.git" remote="hub" revision="lineage-23.2" />
 </manifest>
 EOF
 
@@ -59,23 +61,14 @@ else
     done
 fi
 
-# ================= PATCH — NFC sepolicy fix =================
-echo ">>> Patching NFC sepolicy..."
-FILE="device/xiaomi/mt6768-common/sepolicy/vendor/file_contexts"
-if [ -f "$FILE" ]; then
-    sed -i '/\/dev\/nq-nci/d' "$FILE"
-    echo ">>> NFC patch applied!"
-else
-    echo ">>> file_contexts not found, skipping NFC patch..."
-fi
 
 # ================= BUILD =================
 echo ">>> Setting up build environment..."
 . build/envsetup.sh
 
 export ALLOW_MISSING_DEPENDENCIES=true
-export CRDROID_BUILDTYPE="OFFICIAL"
-export CRDROID_MAINTAINER="bhodrolok"
+export LINEAGE_BUILDTYPE=UNOFFICIAL
+export LINEAGE_MAINTAINER="bhodrolok"
 export TARGET_SUPPORTS_BLUR=false
 
 
