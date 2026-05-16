@@ -2,7 +2,7 @@
 set -e
 
 # ================= CONFIG =================
-DEVICE="lancelot"
+DEVICE="lineage_lancelot"
 MAINTAINER="bhodrolok"
 BUILDTYPE="UNOFFICIAL"
 
@@ -64,7 +64,7 @@ fi
 
 # ================= BUILD =================
 echo ">>> Setting up build environment..."
-. build/envsetup.sh
+source build/envsetup.sh
 
 export ALLOW_MISSING_DEPENDENCIES=true
 export LINEAGE_BUILDTYPE=UNOFFICIAL
@@ -73,5 +73,5 @@ export TARGET_SUPPORTS_BLUR=false
 
 
 echo ">>> Building LOS 23.2 for $DEVICE..."
-brunch $DEVICE user
-m -j$(nproc --all)
+lunch $DEVICE bp4a userdebug
+mka bacon -j$(nproc --all)
