@@ -100,5 +100,5 @@ export TARGET_SUPPORTS_BLUR=false
 
 
 echo ">>> Building LOS 23.2 for $DEVICE..."
-lunch $DEVICE bp4a userdebug
+lunch $DEVICE bp4a user
 mka bacon -j$(nproc --all)
