@@ -94,7 +94,8 @@ source build/envsetup.sh
 
 export ALLOW_MISSING_DEPENDENCIES=true
 export LINEAGE_BUILDTYPE=UNOFFICIAL
-export LINEAGE_MAINTAINER="bhodrolok"
+export BUILD_USERNAME=bhodrolok
+export BUILD_HOSTNAME=crave
 export TARGET_SUPPORTS_BLUR=false
 
 
