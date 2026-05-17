@@ -61,6 +61,32 @@ else
     done
 fi
 
+# ================= PATCH — AVC Profile fix =================
+echo ">>> Patching ACodec.cpp for MTK AVC profiles..."
+FILE="frameworks/av/media/libstagefright/ACodec.cpp"
+if [ -f "$FILE" ]; then
+    python3 - << 'PYEOF'
+with open("frameworks/av/media/libstagefright/ACodec.cpp", "r") as f:
+    lines = f.readlines()
+
+patch = '''        if (!isEncoder && strcasecmp(mime, MEDIA_MIMETYPE_VIDEO_AVC) == 0 &&
+                strncasecmp(name, "OMX.MTK.VIDEO.DECODER.AVC", 25) == 0) {
+            caps->addProfileLevel(OMX_VIDEO_AVCProfileHigh, OMX_VIDEO_AVCLevel42);
+            caps->addProfileLevel(OMX_VIDEO_AVCProfileConstrainedHigh, OMX_VIDEO_AVCLevel42);
+        }
+'''
+
+lines.insert(9341, patch)
+
+with open("frameworks/av/media/libstagefright/ACodec.cpp", "w") as f:
+    f.writelines(lines)
+
+print("Patch applied successfully!")
+PYEOF
+else
+    echo ">>> ACodec.cpp not found, skipping..."
+fi
+
 
 # ================= BUILD =================
 echo ">>> Setting up build environment..."
